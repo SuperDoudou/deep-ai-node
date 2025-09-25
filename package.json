@@ -1,0 +1,38 @@
+{
+  "name": "deep-ai-node",
+  "version": "1.0.0",
+  "scripts": {
+    "run": "tsc && node dist/server.js",
+    "build": "tsc",
+    "build:w": "tsc -w",
+    "run:w": "supervisor dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "async-lock": "^1.4.1",
+    "async-mutex": "^0.5.0",
+    "diff-match-patch": "^1.0.5",
+    "express": "^5.1.0",
+    "puppeteer": "^24.21.0",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@types/async-lock": "^1.4.2",
+    "@types/body-parser": "^1.19.6",
+    "@types/diff-match-patch": "^1.0.36",
+    "@types/express": "^5.0.3",
+    "@types/express-serve-static-core": "^5.0.7",
+    "@types/hast": "^3.0.4",
+    "@types/http-errors": "^2.0.5",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^24.5.2",
+    "@types/send": "^0.17.5",
+    "@types/serve-static": "^1.15.8",
+    "@types/unist": "^3.0.3",
+    "@types/yauzl": "^2.10.3",
+    "shiki": "^3.12.2"
+  }
+}
