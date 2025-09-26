@@ -2,6 +2,7 @@ import * as  puppeteer from 'puppeteer';
 import { codeToHtml } from 'shiki'
 import * as diff from 'diff-match-patch';
 import { Mutex } from 'async-mutex';
+import { json } from 'body-parser';
 
 
 type Page = {
@@ -15,7 +16,7 @@ export class Puppeteer {
   public static pageList: Page[] = [];
   public static mutex: Mutex;
   public static async init() {
-    this.browser = await puppeteer.launch();
+    this.browser = await puppeteer.launch({ args: ['--no-sandbox'], });
     this.mutex = new Mutex();
 
   }
@@ -125,9 +126,17 @@ export async function code2Image(newCode: string, oldCode: string): Promise<stri
   `;
   const page = await Puppeteer.getPage()
   await page.page.setContent(htmlContent)
-  let r1 = await page.page.evaluate(`e = document.getElementById('codeHtml');domtoimage.toPng(e,{width: e.offsetWidth * 2,height: e.offsetHeight * 2,style: {transform: \`scale(2)\`,transformOrigin: "top left"}})`)
+  let Imagebase64 = page.page.evaluate(`e = document.getElementById('codeHtml');domtoimage.toPng(e,{width: e.offsetWidth * 2,height: e.offsetHeight * 2,style: {transform: \`scale(2)\`,transformOrigin: "top left"}})`)
+  let width = page.page.evaluate(`e = document.getElementById('codeHtml');e.offsetWidth`)
+  let height = page.page.evaluate(`e = document.getElementById('codeHtml');e.offsetHeight`)
+
   page.busy = false
-  return r1 as string
+
+  return JSON.stringify({
+    width: await width,
+    height: await height,
+    image: await Imagebase64,
+  })
 
 
 }

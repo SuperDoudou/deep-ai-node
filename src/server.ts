@@ -18,9 +18,9 @@ app.get('/', (req, res) => {
 });
 app.post('/code2Image', (req, res) => {
     const { newCode, oldCode } = req.body;
-    let result = code2Image(newCode, oldCode);
-    result.then((data) => {
-        res.send('' + data);
+    let resultJson = code2Image(newCode, oldCode);
+    resultJson.then((data) => {
+        res.send(data);
     }).catch(
         (err) => {
             res.send('err: ' + err);
